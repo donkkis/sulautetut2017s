@@ -1,0 +1,279 @@
+pi@rpi_PA2017:~ $ bluetoothctl
+[NEW] Controller B8:27:EB:E9:E0:36 rpi_PA2017 [default]
+[NEW] Device DA:BC:46:03:37:84 K6000 Pro
+[NEW] Device 34:F3:9A:C8:F9:69 SEPLT1528
+[bluetooth]# info
+Missing device address argument
+[bluetooth]# devices
+Device DA:BC:46:03:37:84 K6000 Pro
+Device 34:F3:9A:C8:F9:69 SEPLT1528
+[bluetooth]# scan on
+Discovery started
+[CHG] Controller B8:27:EB:E9:E0:36 Discovering: yes
+[NEW] Device 00:1D:A5:68:98:8B 00-1D-A5-68-98-8B
+[CHG] Device 34:F3:9A:C8:F9:69 RSSI: -33
+[CHG] Device 34:F3:9A:C8:F9:69 TxPower: 7
+[CHG] Device 00:1D:A5:68:98:8B LegacyPairing: no
+[CHG] Device 00:1D:A5:68:98:8B Name: OBDII
+[CHG] Device 00:1D:A5:68:98:8B Alias: OBDII
+[bluetooth]# scan off
+[CHG] Device 34:F3:9A:C8:F9:69 TxPower is nil
+[CHG] Device 34:F3:9A:C8:F9:69 RSSI is nil
+[CHG] Device 00:1D:A5:68:98:8B RSSI is nil
+Discovery stopped
+[CHG] Controller B8:27:EB:E9:E0:36 Discovering: no
+[bluetooth]# pair 00:1D:A5:68:98:8B 
+Attempting to pair with 00:1D:A5:68:98:8B
+[CHG] Device 00:1D:A5:68:98:8B Connected: yes
+Failed to pair: org.bluez.Error.AuthenticationFailed
+[CHG] Device 00:1D:A5:68:98:8B Connected: no
+[bluetooth]# pair 00:1D:A5:68:98:8B 
+Attempting to pair with 00:1D:A5:68:98:8B
+[CHG] Device 00:1D:A5:68:98:8B Connected: yes
+Failed to pair: org.bluez.Error.AuthenticationFailed
+[CHG] Device 00:1D:A5:68:98:8B Connected: no
+[bluetooth]# pair 00:1D:A5:68:98:8B 
+Attempting to pair with 00:1D:A5:68:98:8B
+[CHG] Device 00:1D:A5:68:98:8B Connected: yes
+Failed to pair: org.bluez.Error.AuthenticationFailed
+[CHG] Device 00:1D:A5:68:98:8B Connected: no
+[CHG] Device 00:1D:A5:68:98:8B Connected: yes
+[CHG] Device 00:1D:A5:68:98:8B Connected: no
+[CHG] Device 00:1D:A5:68:98:8B Trusted: yes
+[CHG] Device 00:1D:A5:68:98:8B Connected: yes
+[CHG] Device 00:1D:A5:68:98:8B Connected: no
+[CHG] Device 00:1D:A5:68:98:8B Connected: yes
+[CHG] Device 00:1D:A5:68:98:8B Connected: no
+[bluetooth]# trust 00:1D:A5:68:98:8B 
+Changing 00:1D:A5:68:98:8B trust succeeded
+[bluetooth]# connect 00:1D:A5:68:98:8B 
+Attempting to connect to 00:1D:A5:68:98:8B
+[CHG] Device 00:1D:A5:68:98:8B Connected: yes
+[CHG] Device 00:1D:A5:68:98:8B UUIDs: 00001101-0000-1000-8000-00805f9b34fb
+[CHG] Device 00:1D:A5:68:98:8B ServicesResolved: yes
+Failed to connect: org.bluez.Error.NotAvailable
+[CHG] Device 00:1D:A5:68:98:8B ServicesResolved: no
+[CHG] Device 00:1D:A5:68:98:8B Connected: no
+[bluetooth]# pair 00:1D:A5:68:98:8B 
+Attempting to pair with 00:1D:A5:68:98:8B
+[CHG] Device 00:1D:A5:68:98:8B Connected: yes
+Failed to pair: org.bluez.Error.AuthenticationFailed
+[CHG] Device 00:1D:A5:68:98:8B Connected: no
+[CHG] Device 00:1D:A5:68:98:8B Connected: yes
+[OBDII]# quit
+[DEL] Controller B8:27:EB:E9:E0:36 rpi_PA2017 [default]
+pi@rpi_PA2017:~ $ ls
+Desktop    file         obd_test2.py  Pictures      sulautetut2017s
+Documents  minicom.log  obd_test.py   Public        Templates
+Downloads  Music        output.csv    python_games  Videos
+pi@rpi_PA2017:~ $ cd sulautetut2017s
+pi@rpi_PA2017:~/sulautetut2017s $ ls
+3.jpg             keypress0001.jpg  secondpic.jpg
+etakuva.jpg       keypress-001.jpg  sulautetut_oppimispäiväkirja_paho.docx
+firstpic.jpg      obdPIPA           testvideo.h264
+keypress0000.jpg  README.md         webcam.sh
+pi@rpi_PA2017:~/sulautetut2017s $ cd obdPIPA
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ ls
+obdtest3.py  README
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ sudo rfcomm bind /dev/rfcomm0 00:1D:A5:68:98:8B
+Can't create device: Device or resource busy
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ sudo rfcomm bind /dev/rfcomm0 00:1D:A5:68:98:8B
+Can't create device: Address already in use
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ sudo rfcomm bind /dev/rfcomm0 00:1D:A5:68:98:8B
+Can't create device: Address already in use
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ sudo rfcomm bind /dev/rfcomm0 00:1D:A5:68:98:8B
+Can't create device: Address already in use
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ sudo rfcomm bind /dev/rfcomm0 00:1D:A5:68:98:8B
+Can't create device: Address already in use
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ sudo rfcomm bind /dev/rfcomm0 00:1D:A5:68:98:8B
+Can't create device: Address already in use
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ sudo rfcomm bind /dev/rfcomm1 00:1D:A5:68:98:8B
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ python obdPIPA.py
+python: can't open file 'obdPIPA.py': [Errno 2] No such file or directory
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ ls
+obdtest3.py  README
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ python obdtest3.py
+Segmentation fault
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ python obdtest3.py
+^CTraceback (most recent call last):
+  File "obdtest3.py", line 12, in <module>
+    connection = obd.OBD(None, 9600)
+  File "/home/pi/.local/lib/python2.7/site-packages/obd/obd.py", line 58, in __init__
+    self.__connect(portstr, baudrate, protocol) # initialize by connecting and loading sensors
+  File "/home/pi/.local/lib/python2.7/site-packages/obd/obd.py", line 70, in __connect
+    portnames = scan_serial()
+  File "/home/pi/.local/lib/python2.7/site-packages/obd/utils.py", line 186, in scan_serial
+    if try_port(port):
+  File "/home/pi/.local/lib/python2.7/site-packages/obd/utils.py", line 150, in try_port
+    s = serial.Serial(portStr)
+  File "/home/pi/.local/lib/python2.7/site-packages/serial/serialutil.py", line 240, in __init__
+    self.open()
+  File "/home/pi/.local/lib/python2.7/site-packages/serial/serialposix.py", line 265, in open
+    self.fd = os.open(self.portstr, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)
+KeyboardInterrupt
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ python
+Python 2.7.13 (default, Jan 19 2017, 14:48:08) 
+[GCC 6.3.0 20170124] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import obd
+>>> conn = obd.OBD('/dev/rfcomm1', 9600)
+>>> conn.status()
+'Car Connected'
+>>> 
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ ls
+obdtest3.py  obdtest_autossa.py  README
+pi@rpi_PA2017:~/sulautetut2017s/obdPIPA $ python obdtest_autossa.py
+Car Connected
+(0, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(1, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(2, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(3, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(4, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(5, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(6, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(7, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(8, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(9, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(10, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(11, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(12, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(13, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(14, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(15, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(16, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(17, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(18, '0.0 revolutions_per_minute', '0.0 percent', '99 kilopascal', '9 degC')
+(19, '1045.0 revolutions_per_minute', '13.7254901961 percent', '37 kilopascal', '9 degC')
+(20, '990.0 revolutions_per_minute', '12.9411764706 percent', '37 kilopascal', '9 degC')
+(21, '924.0 revolutions_per_minute', '14.1176470588 percent', '37 kilopascal', '11 degC')
+(22, '923.0 revolutions_per_minute', '14.5098039216 percent', '37 kilopascal', '13 degC')
+(23, '1287.0 revolutions_per_minute', '9.41176470588 percent', '31 kilopascal', '15 degC')
+(24, '912.0 revolutions_per_minute', '14.5098039216 percent', '36 kilopascal', '16 degC')
+(25, '893.0 revolutions_per_minute', '14.5098039216 percent', '36 kilopascal', '18 degC')
+(26, '991.0 revolutions_per_minute', '12.5490196078 percent', '33 kilopascal', '19 degC')
+(27, '1318.0 revolutions_per_minute', '23.137254902 percent', '47 kilopascal', '20 degC')
+(28, '772.0 revolutions_per_minute', '22.7450980392 percent', '49 kilopascal', '21 degC')
+(29, '1113.0 revolutions_per_minute', '17.2549019608 percent', '39 kilopascal', '23 degC')
+(30, '1028.0 revolutions_per_minute', '52.5490196078 percent', '98 kilopascal', '24 degC')
+(31, '1225.0 revolutions_per_minute', '5.49019607843 percent', '25 kilopascal', '26 degC')
+(32, '1062.0 revolutions_per_minute', '0.0 percent', '25 kilopascal', '27 degC')
+(33, '788.0 revolutions_per_minute', '11.3725490196 percent', '30 kilopascal', '28 degC')
+(34, '1652.0 revolutions_per_minute', '37.6470588235 percent', '71 kilopascal', '28 degC')
+(35, '2019.0 revolutions_per_minute', '0.0 percent', '24 kilopascal', '26 degC')
+(36, '1490.0 revolutions_per_minute', '0.0 percent', '25 kilopascal', '25 degC')
+(37, '1580.0 revolutions_per_minute', '31.7647058824 percent', '62 kilopascal', '27 degC')
+(38, '1174.0 revolutions_per_minute', '0.0 percent', '25 kilopascal', '27 degC')
+(39, '1784.0 revolutions_per_minute', '25.0980392157 percent', '100 kilopascal', '29 degC')
+(40, '1740.0 revolutions_per_minute', '1.56862745098 percent', '26 kilopascal', '30 degC')
+(41, '1653.0 revolutions_per_minute', '27.8431372549 percent', '48 kilopascal', '31 degC')
+(42, '1733.0 revolutions_per_minute', '34.1176470588 percent', '66 kilopascal', '33 degC')
+(43, '1871.0 revolutions_per_minute', '27.0588235294 percent', '55 kilopascal', '33 degC')
+(44, '2006.0 revolutions_per_minute', '7.05882352941 percent', '25 kilopascal', '35 degC')
+(45, '1977.0 revolutions_per_minute', '0.0 percent', '25 kilopascal', '36 degC')
+(46, '1727.0 revolutions_per_minute', '0.0 percent', '25 kilopascal', '36 degC')
+(47, '1781.0 revolutions_per_minute', '2.35294117647 percent', '24 kilopascal', '36 degC')
+(48, '1772.0 revolutions_per_minute', '10.1960784314 percent', '98 kilopascal', '36 degC')
+(49, '1908.0 revolutions_per_minute', '29.0196078431 percent', '59 kilopascal', '37 degC')
+(50, '1873.0 revolutions_per_minute', '6.27450980392 percent', '25 kilopascal', '39 degC')
+(51, '1683.0 revolutions_per_minute', '5.09803921569 percent', '26 kilopascal', '40 degC')
+(52, '1092.0 revolutions_per_minute', '38.431372549 percent', '69 kilopascal', '41 degC')
+(53, '1771.0 revolutions_per_minute', '41.9607843137 percent', '82 kilopascal', '42 degC')
+(54, '1990.0 revolutions_per_minute', '47.8431372549 percent', '90 kilopascal', '42 degC')
+(55, '1841.0 revolutions_per_minute', '3.92156862745 percent', '25 kilopascal', '45 degC')
+(56, '1854.0 revolutions_per_minute', '29.4117647059 percent', '60 kilopascal', '46 degC')
+(57, '1933.0 revolutions_per_minute', '10.5882352941 percent', '28 kilopascal', '48 degC')
+(58, '1968.0 revolutions_per_minute', '14.5098039216 percent', '34 kilopascal', '47 degC')
+(59, '1934.0 revolutions_per_minute', '9.01960784314 percent', '24 kilopascal', '48 degC')
+(60, '1908.0 revolutions_per_minute', '0.0 percent', '25 kilopascal', '48 degC')
+(61, '1764.0 revolutions_per_minute', '40.0 percent', '79 kilopascal', '48 degC')
+(62, '1946.0 revolutions_per_minute', '41.1764705882 percent', '75 kilopascal', '49 degC')
+(63, '2065.0 revolutions_per_minute', '15.2941176471 percent', '36 kilopascal', '51 degC')
+(64, '1984.0 revolutions_per_minute', '2.35294117647 percent', '25 kilopascal', '51 degC')
+(65, '1987.0 revolutions_per_minute', '10.9803921569 percent', '25 kilopascal', '52 degC')
+(66, '848.0 revolutions_per_minute', '11.3725490196 percent', '31 kilopascal', '52 degC')
+(67, '1673.0 revolutions_per_minute', '29.0196078431 percent', '50 kilopascal', '53 degC')
+(68, '797.0 revolutions_per_minute', '12.1568627451 percent', '32 kilopascal', '54 degC')
+(69, '1504.0 revolutions_per_minute', '15.6862745098 percent', '43 kilopascal', '55 degC')
+(70, '816.0 revolutions_per_minute', '12.1568627451 percent', '35 kilopascal', '54 degC')
+(71, '650.0 revolutions_per_minute', '14.1176470588 percent', '34 kilopascal', '56 degC')
+(72, '1640.0 revolutions_per_minute', '27.8431372549 percent', '68 kilopascal', '57 degC')
+(73, '1568.0 revolutions_per_minute', '1.96078431373 percent', '25 kilopascal', '55 degC')
+(74, '645.0 revolutions_per_minute', '13.7254901961 percent', '34 kilopascal', '57 degC')
+(75, '1879.0 revolutions_per_minute', '25.0980392157 percent', '58 kilopascal', '58 degC')
+(76, '1701.0 revolutions_per_minute', '56.862745098 percent', '118 kilopascal', '57 degC')
+(77, '2164.0 revolutions_per_minute', '37.2549019608 percent', '74 kilopascal', '59 degC')
+(78, '2045.0 revolutions_per_minute', '2.74509803922 percent', '24 kilopascal', '60 degC')
+(79, '1766.0 revolutions_per_minute', '21.9607843137 percent', '44 kilopascal', '61 degC')
+(80, '1709.0 revolutions_per_minute', '1.56862745098 percent', '25 kilopascal', '61 degC')
+(81, '1735.0 revolutions_per_minute', '18.0392156863 percent', '41 kilopascal', '60 degC')
+(82, '1971.0 revolutions_per_minute', '22.3529411765 percent', '50 kilopascal', '60 degC')
+(83, '1924.0 revolutions_per_minute', '39.6078431373 percent', '79 kilopascal', '62 degC')
+(84, '1888.0 revolutions_per_minute', '24.7058823529 percent', '52 kilopascal', '63 degC')
+(85, '1898.0 revolutions_per_minute', '35.6862745098 percent', '72 kilopascal', '64 degC')
+(86, '1596.0 revolutions_per_minute', '14.1176470588 percent', '55 kilopascal', '66 degC')
+(87, '1908.0 revolutions_per_minute', '24.3137254902 percent', '52 kilopascal', '66 degC')
+(88, '2042.0 revolutions_per_minute', '0.0 percent', '24 kilopascal', '66 degC')
+(89, '1027.0 revolutions_per_minute', '7.8431372549 percent', '28 kilopascal', '65 degC')
+(90, '1564.0 revolutions_per_minute', '30.5882352941 percent', '62 kilopascal', '65 degC')
+(91, '1791.0 revolutions_per_minute', '51.7647058824 percent', '103 kilopascal', '65 degC')
+(92, '1847.0 revolutions_per_minute', '10.1960784314 percent', '27 kilopascal', '66 degC')
+(93, '1724.0 revolutions_per_minute', '12.5490196078 percent', '32 kilopascal', '67 degC')
+(94, '981.0 revolutions_per_minute', '7.8431372549 percent', '27 kilopascal', '67 degC')
+(95, '1576.0 revolutions_per_minute', '62.3529411765 percent', '129 kilopascal', '67 degC')
+(96, '1955.0 revolutions_per_minute', '34.1176470588 percent', '70 kilopascal', '68 degC')
+(97, '1931.0 revolutions_per_minute', '33.3333333333 percent', '68 kilopascal', '70 degC')
+(98, '2068.0 revolutions_per_minute', '34.9019607843 percent', '72 kilopascal', '71 degC')
+(99, '1968.0 revolutions_per_minute', '32.5490196078 percent', '67 kilopascal', '72 degC')
+(100, '2025.0 revolutions_per_minute', '6.66666666667 percent', '25 kilopascal', '73 degC')
+(101, '1877.0 revolutions_per_minute', '0.0 percent', '24 kilopascal', '73 degC')
+(102, '1817.0 revolutions_per_minute', '0.0 percent', '25 kilopascal', '72 degC')
+(103, '1253.0 revolutions_per_minute', '7.8431372549 percent', '27 kilopascal', '72 degC')
+(104, '1840.0 revolutions_per_minute', '0.0 percent', '25 kilopascal', '72 degC')
+(105, '1663.0 revolutions_per_minute', '38.0392156863 percent', '72 kilopascal', '73 degC')
+(106, '2331.0 revolutions_per_minute', '43.5294117647 percent', '86 kilopascal', '73 degC')
+(107, '1830.0 revolutions_per_minute', '0.0 percent', '24 kilopascal', '75 degC')
+(108, '1599.0 revolutions_per_minute', '34.9019607843 percent', '71 kilopascal', '76 degC')
+(109, '1939.0 revolutions_per_minute', '25.0980392157 percent', '54 kilopascal', '77 degC')
+(110, '1861.0 revolutions_per_minute', '21.568627451 percent', '48 kilopascal', '77 degC')
+(111, '864.0 revolutions_per_minute', '9.80392156863 percent', '29 kilopascal', '78 degC')
+(112, '1233.0 revolutions_per_minute', '18.0392156863 percent', '46 kilopascal', '78 degC')
+(113, '816.0 revolutions_per_minute', '10.5882352941 percent', '31 kilopascal', '79 degC')
+(114, '648.0 revolutions_per_minute', '43.5294117647 percent', '77 kilopascal', '79 degC')
+(115, '1309.0 revolutions_per_minute', '20.3921568627 percent', '61 kilopascal', '79 degC')
+(116, '867.0 revolutions_per_minute', '9.01960784314 percent', '30 kilopascal', '79 degC')
+(117, '649.0 revolutions_per_minute', '12.1568627451 percent', '35 kilopascal', '80 degC')
+(118, '645.0 revolutions_per_minute', '12.5490196078 percent', '32 kilopascal', '81 degC')
+(119, '661.0 revolutions_per_minute', '12.1568627451 percent', '32 kilopascal', '80 degC')
+(120, '649.0 revolutions_per_minute', '12.1568627451 percent', '32 kilopascal', '80 degC')
+(121, '646.0 revolutions_per_minute', '12.9411764706 percent', '32 kilopascal', '80 degC')
+(122, '661.0 revolutions_per_minute', '12.1568627451 percent', '32 kilopascal', '80 degC')
+(123, '648.0 revolutions_per_minute', '12.5490196078 percent', '32 kilopascal', '79 degC')
+(124, '650.0 revolutions_per_minute', '12.1568627451 percent', '32 kilopascal', '79 degC')
+(125, '650.0 revolutions_per_minute', '12.5490196078 percent', '32 kilopascal', '79 degC')
+(126, '647.0 revolutions_per_minute', '12.5490196078 percent', '32 kilopascal', '79 degC')
+(127, 'None', 'None', 'None', 'None')
+(128, 'None', 'None', 'None', 'None')
+(129, 'None', 'None', 'None', 'None')
+(130, 'None', 'None', 'None', 'None')
+(131, 'None', 'None', 'None', 'None')
+(132, 'None', 'None', 'None', 'None')
+(133, 'None', 'None', 'None', 'None')
+(134, 'None', 'None', 'None', 'None')
+(135, 'None', 'None', 'None', 'None')
+(136, '1228.0 revolutions_per_minute', '5.49019607843 percent', '32 kilopascal', '79 degC')
+(137, '688.0 revolutions_per_minute', '12.1568627451 percent', '35 kilopascal', '78 degC')
+(138, '651.0 revolutions_per_minute', '12.5490196078 percent', '33 kilopascal', '78 degC')
+(139, 'None', 'None', 'None', 'None')
+(140, 'None', 'None', 'None', 'None')
+(141, 'None', 'None', 'None', 'None')
+(142, 'None', 'None', 'None', 'None')
+(143, 'None', 'None', 'None', 'None')
+(144, 'None', 'None', 'None', 'None')
+(145, 'None', 'None', 'None', 'None')
+(146, 'None', 'None', 'None', 'None')
+(147, 'None', 'None', 'None', 'None')
+(148, 'None', 'None', 'None', 'None')
+^CTraceback (most recent call last):
+  File "obdtest_autossa.py", line 30, in <module>
+    sleep(5)
+KeyboardInterrupt
