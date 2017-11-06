@@ -79,8 +79,8 @@ while True:
 
     #'None' values not saved!
     if not res.is_null():
-      r.append(str(res.value.magnitude))
-      fl.write(str(res.value.magnitude)+',')
+      r.append(str(res.value))
+      fl.write(str(res.value)+',')
     else:
       r.append('null')
       fl.write('null,')
@@ -93,6 +93,6 @@ while True:
   fl.flush()
   
   #Set the read interval in seconds
-  sleep(1)
+  sleep(5)
 
 fl.close()
