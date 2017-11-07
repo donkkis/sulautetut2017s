@@ -13,7 +13,7 @@ from time import sleep
 
 #The port should be changed according to environment
 #COM5 works locally with --> obdsim.exe -w COM4
-c = obd.OBD('COM5', 9600)
+c = obd.OBD('/dev/rfcomm1', 9600)
 print(c.status())
 
 #outputfile
