@@ -1,0 +1,327 @@
+Can't create device: Address already in use
+RFCOMM bind attempted
+Please enter capture mode manually
+pi@rpi_PA2017:~ $ pytonh
+bash: pytonh: command not found
+pi@rpi_PA2017:~ $ python
+Python 2.7.13 (default, Jan 19 2017, 14:48:08) 
+[GCC 6.3.0 20170124] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> c = obd.OBD('/dev/rfcomm1', 9600)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'obd' is not defined
+>>> import obd
+>>> c = obd.OBD('/dev/rfcomm1', 9600)
+>>> c.status()
+'Car Connected'
+>>> c.query(obd.commands.FUEL_RATE)
+[obd.obd] '015E: Engine fuel rate' is not supported
+<obd.OBDResponse.OBDResponse instance at 0x75603dc8>
+>>> c.query(obd.commands.FUEL_RATE)
+[obd.obd] '015E: Engine fuel rate' is not supported
+<obd.OBDResponse.OBDResponse instance at 0x75603d78>
+>>> print(c.query(obd.commands.FUEL_RATE))
+[obd.obd] '015E: Engine fuel rate' is not supported
+None
+>>> print(c.query(obd.commands.FUEL_LEVEL))
+[obd.obd] '012F: Fuel Level Input' is not supported
+None
+>>> print(c.query(obd.commands[1][5]))
+55 degC
+>>> print(c.query(obd.commands.ENGINE_COOLANT))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: Commands instance has no attribute 'ENGINE_COOLANT'
+>>> print(c.query(obd.commands.COOLANT_TEMP))
+[obd.elm327] Failed to read port
+None
+>>> c.status()
+'Car Connected'
+>>> print(c.query(obd.commands[1][5]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][5]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][5]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][5]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][10]))
+[obd.obd] '010A: Fuel Pressure' is not supported
+None
+>>> print(c.query(obd.commands[1][11]))
+35 kilopascal
+>>> print(c.query(obd.commands[1][11]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][11]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][12]))
+627.0 revolutions_per_minute
+>>> print(c.query(obd.commands[1][12]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][12]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][17]))
+12.5490196078 percent
+>>> print(c.query(obd.commands[1][17]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][16]))
+[obd.obd] '0110: Air Flow Rate (MAF)' is not supported
+None
+>>> print(c.query(obd.commands[1][31]))
+384 second
+>>> print(c.query(obd.commands[1][31]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][78]))
+[obd.obd] '014E: Time since trouble codes cleared' is not supported
+None
+>>> print(c.query(obd.commands[1][94]))
+[obd.obd] '015E: Engine fuel rate' is not supported
+None
+>>> print(c.query(obd.commands[1][93]))
+[obd.obd] '015D: Fuel injection timing' is not supported
+None
+>>> print(c.query(obd.commands[1][92]))
+[obd.obd] '015C: Engine oil temperature' is not supported
+None
+>>> print(c.query(obd.commands[1][127]))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> print(c.query(obd.commands[1][116]))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> print(c.query(obd.commands[1][97]))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> print(c.query(obd.commands[1][90]))
+[obd.obd] '015A: Relative accelerator pedal position' is not supported
+None
+>>> print(c.query(obd.commands[1][47]))
+[obd.obd] '012F: Fuel Level Input' is not supported
+None
+>>> print(c.query(obd.commands[1][28]))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/pi/.local/lib/python2.7/site-packages/obd/obd.py", line 265, in query
+    return cmd(messages) # compute a response object
+  File "/home/pi/.local/lib/python2.7/site-packages/obd/OBDCommand.py", line 97, in __call__
+    r.value = self.decode(messages)
+  File "/home/pi/.local/lib/python2.7/site-packages/obd/decoders.py", line 331, in obd_compliance
+    d = messages[0].data
+NameError: global name 'messages' is not defined
+>>> print(c.query(obd.commands[1][13]))
+0 kph
+>>> print(c.query(obd.commands[1][13]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.query(obd.commands[1][2]))
+[obd.obd] '0102: DTC that triggered the freeze frame' is not supported
+None
+>>> print(c.query(obd.commands[1][4]))
+12.5490196078 percent
+>>> print(c.query(obd.commands[1][4]))
+[obd.elm327] Failed to read port
+None
+>>> print(c.protocol_name())
+ISO 15765-4 (CAN 11/500)
+>>> print(c.protocol_name())
+ISO 15765-4 (CAN 11/500)
+>>> print(c.protocol_id())
+6
+>>> c.supported_commands
+set([<obd.OBDCommand.OBDCommand instance at 0x7567fee0>, <obd.OBDCommand.OBDCommand instance at 0x7567f9b8>, <obd.OBDCommand.OBDCommand instance at 0x755f9cd8>, <obd.OBDCommand.OBDCommand instance at 0x7567f968>, <obd.OBDCommand.OBDCommand instance at 0x7567fe40>, <obd.OBDCommand.OBDCommand instance at 0x7567fe68>, <obd.OBDCommand.OBDCommand instance at 0x7567fa08>, <obd.OBDCommand.OBDCommand instance at 0x755fe238>, <obd.OBDCommand.OBDCommand instance at 0x755fe1e8>, <obd.OBDCommand.OBDCommand instance at 0x755fe1c0>, <obd.OBDCommand.OBDCommand instance at 0x755fe440>, <obd.OBDCommand.OBDCommand instance at 0x756039b8>, <obd.OBDCommand.OBDCommand instance at 0x755fe530>, <obd.OBDCommand.OBDCommand instance at 0x755fe468>, <obd.OBDCommand.OBDCommand instance at 0x755f91e8>, <obd.OBDCommand.OBDCommand instance at 0x755fe648>, <obd.OBDCommand.OBDCommand instance at 0x7567fc38>, <obd.OBDCommand.OBDCommand instance at 0x755fe8f0>, <obd.OBDCommand.OBDCommand instance at 0x755f9198>, <obd.OBDCommand.OBDCommand instance at 0x755f9170>, <obd.OBDCommand.OBDCommand instance at 0x755fe580>, <obd.OBDCommand.OBDCommand instance at 0x755feb48>, <obd.OBDCommand.OBDCommand instance at 0x755f92d8>, <obd.OBDCommand.OBDCommand instance at 0x75603990>, <obd.OBDCommand.OBDCommand instance at 0x755feb70>, <obd.OBDCommand.OBDCommand instance at 0x755f90f8>, <obd.OBDCommand.OBDCommand instance at 0x755f9da0>, <obd.OBDCommand.OBDCommand instance at 0x755fe620>, <obd.OBDCommand.OBDCommand instance at 0x755f9b48>, <obd.OBDCommand.OBDCommand instance at 0x755f9eb8>, <obd.OBDCommand.OBDCommand instance at 0x755f9788>, <obd.OBDCommand.OBDCommand instance at 0x755f97b0>, <obd.OBDCommand.OBDCommand instance at 0x755f96e8>, <obd.OBDCommand.OBDCommand instance at 0x755f9738>, <obd.OBDCommand.OBDCommand instance at 0x755f91c0>, <obd.OBDCommand.OBDCommand instance at 0x755f9698>, <obd.OBDCommand.OBDCommand instance at 0x755f9210>, <obd.OBDCommand.OBDCommand instance at 0x755f9620>, <obd.OBDCommand.OBDCommand instance at 0x7567f8f0>, <obd.OBDCommand.OBDCommand instance at 0x7567f8c8>, <obd.OBDCommand.OBDCommand instance at 0x755fe490>, <obd.OBDCommand.OBDCommand instance at 0x7567f918>, <obd.OBDCommand.OBDCommand instance at 0x7567feb8>, <obd.OBDCommand.OBDCommand instance at 0x755fe148>, <obd.OBDCommand.OBDCommand instance at 0x7567f8a0>, <obd.OBDCommand.OBDCommand instance at 0x7567f878>, <obd.OBDCommand.OBDCommand instance at 0x755f9a08>, <obd.OBDCommand.OBDCommand instance at 0x755fe4b8>, <obd.OBDCommand.OBDCommand instance at 0x755f9940>, <obd.OBDCommand.OBDCommand instance at 0x755f9990>, <obd.OBDCommand.OBDCommand instance at 0x755f98a0>, <obd.OBDCommand.OBDCommand instance at 0x755f98f0>, <obd.OBDCommand.OBDCommand instance at 0x7567fbe8>, <obd.OBDCommand.OBDCommand instance at 0x7567fbc0>, <obd.OBDCommand.OBDCommand instance at 0x7567f788>, <obd.OBDCommand.OBDCommand instance at 0x7567f760>, <obd.OBDCommand.OBDCommand instance at 0x7567f7d8>, <obd.OBDCommand.OBDCommand instance at 0x7567f7b0>, <obd.OBDCommand.OBDCommand instance at 0x7567f6e8>, <obd.OBDCommand.OBDCommand instance at 0x7684e210>, <obd.OBDCommand.OBDCommand instance at 0x7567f738>, <obd.OBDCommand.OBDCommand instance at 0x755fed28>, <obd.OBDCommand.OBDCommand instance at 0x755f9260>, <obd.OBDCommand.OBDCommand instance at 0x7567fdf0>, <obd.OBDCommand.OBDCommand instance at 0x755f9e18>, <obd.OBDCommand.OBDCommand instance at 0x755f9e40>, <obd.OBDCommand.OBDCommand instance at 0x756039e0>, <obd.OBDCommand.OBDCommand instance at 0x755fe508>, <obd.OBDCommand.OBDCommand instance at 0x755fe260>, <obd.OBDCommand.OBDCommand instance at 0x755fe558>, <obd.OBDCommand.OBDCommand instance at 0x755f9148>, <obd.OBDCommand.OBDCommand instance at 0x755fed00>, <obd.OBDCommand.OBDCommand instance at 0x755f9288>, <obd.OBDCommand.OBDCommand instance at 0x755f9aa8>, <obd.OBDCommand.OBDCommand instance at 0x7567fb20>, <obd.OBDCommand.OBDCommand instance at 0x755feb98>, <obd.OBDCommand.OBDCommand instance at 0x755f9bc0>, <obd.OBDCommand.OBDCommand instance at 0x755f9468>, <obd.OBDCommand.OBDCommand instance at 0x755f9058>, <obd.OBDCommand.OBDCommand instance at 0x755fe3a0>, <obd.OBDCommand.OBDCommand instance at 0x755f9120>, <obd.OBDCommand.OBDCommand instance at 0x755fe698>, <obd.OBDCommand.OBDCommand instance at 0x7567fb98>])
+>>> for i in c.supported_commands:
+... print(i+'\n')
+  File "<stdin>", line 2
+    print(i+'\n')
+        ^
+IndentationError: expected an indented block
+>>> for i in c.supported_commands:
+...   print(i+'\n')
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+TypeError: unsupported operand type(s) for +: 'instance' and 'str'
+>>> for i in c.supported_commands:
+...   print(str(i)+'\n')
+... 
+0134: 02 Sensor 1 WR Lambda Current
+
+0113: O2 Sensors Present
+
+021C: DTC OBD Standards Compliance
+
+0111: Throttle Position
+
+0130: Number of warm-ups since codes cleared
+
+0131: Distance traveled since codes cleared
+
+0115: O2: Bank 1 - Sensor 2 Voltage
+
+0233: DTC Barometric Pressure
+
+0231: DTC Distance traveled since codes cleared
+
+0230: DTC Number of warm-ups since codes cleared
+
+0240: DTC Supported PIDs [41-60]
+
+ATI: ELM327 version string
+
+0245: DTC Relative throttle position
+
+0241: DTC Monitor status this drive cycle
+
+0146: Ambient air temperature
+
+024A: DTC Accelerator pedal position E
+
+0123: Fuel Rail Pressure (direct inject)
+
+0256: DTC Long term secondary O2 trim - Bank 1
+
+0144: Commanded equivalence ratio
+
+0143: Absolute load value
+
+0247: DTC Absolute throttle position B
+
+03: Get DTCs
+
+014C: Commanded throttle actuator
+
+07: Get DTCs from the current/last driving cycle
+
+04: Clear DTCs and Freeze data
+
+0140: Supported PIDs [41-60]
+
+021F: DTC Engine Run Time
+
+0249: DTC Accelerator pedal position D
+
+0213: DTC O2 Sensors Present
+
+0223: DTC Fuel Rail Pressure (direct inject)
+
+0206: DTC Short Term Fuel Trim - Bank 1
+
+0207: DTC Long Term Fuel Trim - Bank 1
+
+0204: DTC Calculated Engine Load
+
+0205: DTC Engine Coolant Temperature
+
+0145: Relative throttle position
+
+0203: DTC Fuel System Status
+
+0147: Absolute throttle position B
+
+0201: DTC Status since DTCs cleared
+
+010E: Timing Advance
+
+010D: Vehicle Speed
+
+0242: DTC Control module voltage
+
+010F: Intake Air Temp
+
+0133: Barometric Pressure
+
+022E: DTC Commanded Evaporative Purge
+
+010C: Engine RPM
+
+010B: Intake Manifold Pressure
+
+020F: DTC Intake Air Temp
+
+0243: DTC Absolute load value
+
+020D: DTC Vehicle Speed
+
+020E: DTC Timing Advance
+
+020B: DTC Intake Manifold Pressure
+
+020C: DTC Engine RPM
+
+0121: Distance Traveled with MIL on
+
+0120: Supported PIDs [21-40]
+
+0105: Engine Coolant Temperature
+
+0104: Calculated Engine Load
+
+0107: Long Term Fuel Trim - Bank 1
+
+0106: Short Term Fuel Trim - Bank 1
+
+0101: Status since DTCs cleared
+
+0100: Supported PIDs [01-20]
+
+0103: Fuel System Status
+
+060A: O2 Sensor Monitor Bank 3 - Sensor 2
+
+0149: Accelerator pedal position D
+
+012E: Commanded Evaporative Purge
+
+0220: DTC Supported PIDs [21-40]
+
+0221: DTC Distance Traveled with MIL on
+
+ATRV: Voltage detected by OBD-II adapter
+
+0244: DTC Commanded equivalence ratio
+
+0234: DTC 02 Sensor 1 WR Lambda Current
+
+0246: DTC Ambient air temperature
+
+0142: Control module voltage
+
+0609: O2 Sensor Monitor Bank 3 - Sensor 1
+
+014A: Accelerator pedal position E
+
+0211: DTC Throttle Position
+
+011C: OBD Standards Compliance
+
+0600: Supported MIDs [01-20]
+
+0215: DTC O2: Bank 1 - Sensor 2 Voltage
+
+0156: Long term secondary O2 trim - Bank 1
+
+013C: Catalyst Temperature: Bank 1 - Sensor 1
+
+023C: DTC Catalyst Temperature: Bank 1 - Sensor 1
+
+0141: Monitor status this drive cycle
+
+024C: DTC Commanded throttle actuator
+
+011F: Engine Run Time
+
+>>> 
