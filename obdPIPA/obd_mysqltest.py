@@ -31,30 +31,55 @@ db = 'obdlogger'
 cnx = mysql.connector.connect(user=usr, password=pw, database=db)
 cur = cnx.cursor()
 
-db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed) VALUES ({0}, {1}, {2}, {3})")
+db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed, GPS_Lat, GPS_Long) VALUES ({0}, {1}, {2}, {3}, {4}, {5})")
 
+exit_count = 0
+
+#set query interval globally
+interval = 1
+
+#shutdown latency in seconds
+ttl = 30
 
 #-----------MAIN LOOP-----------------
 #Need to be changed to a while with conditional exit (connection lost/ignition power off)
-while True:
+while exit_count < (ttl/interval):
   r = []
+  c_status = c.status()
   
-  for q in queries:
-    res = c.query(q)
+  #check exit conditions
+  #-ELM327 connection down
+  #-Engine not running
+  if c_status == "Not Connected" or (rpm.value.magnitude == 0 or rpm.value == "None"):
+    exit_count += 1
+    print("Exit count ", exit_count)
 
-    #'None' values not saved!
-    if not res.is_null():
-      r.append(res.value.magnitude)
-    else:
-      r.append(-99)
-  
-  #debug
-  print(r)
-  
-  #Commit ECU query results to db
-  cur.execute(db_query.format(1, r[0], r[1], r[2]))
-  cnx.commit()
-  
-  #Set the read interval in seconds
-  sleep(5)
+  if c_status == "Car Connected":
 
+    for q in queries:
+      res = c.query(q)
+
+      #'None' values not saved!
+      if not res.is_null():
+        r.append(res.value.magnitude)
+      else:
+        r.append(-99)
+
+    #TODO implement geolocation from actual service, these are just random values for simulation
+    #GPS_Lat 
+    r.append(34.555555)
+
+    #GPS_Long
+    r.append(84.555555)
+  
+    #debug
+    print(r)
+  
+    #Commit ECU query results to db
+    #GPS is only for simulation at this point
+    cur.execute(db_query.format(1, r[0], r[1], r[2], r[3], r[4]))
+    cnx.commit()
+ 
+  sleep(interval)
+
+print("Main loop stopped")
