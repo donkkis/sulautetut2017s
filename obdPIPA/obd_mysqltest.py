@@ -8,26 +8,23 @@ from time import sleep
 from subprocess import call
 from gps3.agps3threaded import AGPS3mechanism
 
-#----------Initialize GPS receiver-----------
+#---------------------INIT------------------------
+
+#Initialize GPS receiver
 agps_thread = AGPS3mechanism()
 agps_thread.stream_data()
 agps_thread.run_thread()
 
-#---------Initialize ELM327------------------
+#Initialize ELM327
 #First param is the RFCOMM port (e.g. '/dev/rfcomm0') and second is baud rate
 #None is the default and performs automatic lookup of serial connection (bluetooth/usb)
 #9600 works as the baud rate at least for obdSIM
 
 #The port should be changed according to environment
 #COM5 works locally with --> obdsim.exe -w COM4
-c = obd.OBD('/dev/rfcomm5', 9600)
+#/dev/rfcomm1 for car usage
+c = obd.OBD('/dev/rfcomm1', 9600)
 print(c.status())
-
-#Queries to be submitted to ECU periodically
-queries = [
-obd.commands.RPM,
-obd.commands.ENGINE_LOAD,
-obd.commands.SPEED]
 
 #initialize db connection (potentially unsafe!)
 usr = 'panu'
@@ -37,7 +34,16 @@ db = 'obdlogger'
 cnx = mysql.connector.connect(user=usr, password=pw, database=db)
 cur = cnx.cursor()
 
+#-------------------PARAMETERS----------------------
+
+#DB Insert query
 db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed, GPS_Lat, GPS_Long) VALUES ({0}, {1}, {2}, {3}, {4}, {5})")
+
+#Queries to be submitted to ECU periodically
+queries = [
+obd.commands.RPM,
+obd.commands.ENGINE_LOAD,
+obd.commands.SPEED]
 
 #initialize for conditional stopping
 exit_count = 0
@@ -48,9 +54,14 @@ interval = 1
 #shutdown latency in seconds
 ttl = 10
 
+#Enable/disable automatic shutdown
+
+
 #-----------MAIN LOOP-----------------
 #Aqcuire data from target with conditional exit -> connection lost/ignition power off
-while exit_count < (ttl/interval):
+#For running indefinately
+while True:
+#while exit_count < (ttl/interval):
   r = []
   c_status = c.status()
 
@@ -71,13 +82,13 @@ while exit_count < (ttl/interval):
         r.append(res.value.magnitude)
       else:
         r.append(-99)
-
-    #debug
-    print(r)
-
+		
     #add GPS coordinates
     r.append(agps_thread.data_stream.lat)
     r.append(agps_thread.data_stream.lon)
+		
+    #debug
+    print(r)
 
     #Commit ECU query results to db
     #GPS is only for simulation at this point
