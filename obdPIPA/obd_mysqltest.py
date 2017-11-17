@@ -20,7 +20,7 @@ agps_thread.run_thread()
 
 #The port should be changed according to environment
 #COM5 works locally with --> obdsim.exe -w COM4
-c = obd.OBD('/dev/rfcomm5', 9600)
+c = obd.OBD('/dev/rfcomm1', 9600)
 print(c.status())
 
 #Queries to be submitted to ECU periodically
@@ -33,8 +33,9 @@ obd.commands.SPEED]
 usr = 'panu'
 pw = 'panu'
 db = 'obdlogger'
+h = '212.149.236.220'
 
-cnx = mysql.connector.connect(user=usr, password=pw, database=db)
+cnx = mysql.connector.connect(host = h, user=usr, password=pw, database=db)
 cur = cnx.cursor()
 
 db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed, GPS_Lat, GPS_Long) VALUES ({0}, {1}, {2}, {3}, {4}, {5})")
@@ -43,14 +44,15 @@ db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed, GPS_Lat, GPS_Lo
 exit_count = 0
 
 #set query interval globally
-interval = 1
+interval = 10
 
 #shutdown latency in seconds
-ttl = 10
+ttl = 60
 
 #-----------MAIN LOOP-----------------
 #Aqcuire data from target with conditional exit -> connection lost/ignition power off
-while exit_count < (ttl/interval):
+while True:
+#while exit_count < (ttl/interval):
   r = []
   c_status = c.status()
 
@@ -72,16 +74,19 @@ while exit_count < (ttl/interval):
       else:
         r.append(-99)
 
-    #debug
-    print(r)
-
     #add GPS coordinates
     r.append(agps_thread.data_stream.lat)
     r.append(agps_thread.data_stream.lon)
 
+    #debug
+    print(r)
+
     #Commit ECU query results to db
     #GPS is only for simulation at this point
-    cur.execute(db_query.format(1, r[0], r[1], r[2], r[3], r[4]))
+    if r[3] == "n/a" or r[4] == "n/a":
+      cur.execute(db_query.format(1, r[0], r[1], r[2], 0, 0))
+    else:
+      cur.execute(db_query.format(1, r[0], r[1], r[2], r[3], r[4]))
     cnx.commit()
  
   sleep(interval)
