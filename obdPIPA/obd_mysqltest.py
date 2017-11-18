@@ -27,7 +27,9 @@ print(c.status())
 queries = [
 obd.commands.RPM,
 obd.commands.ENGINE_LOAD,
-obd.commands.SPEED]
+obd.commands.SPEED,
+obd.commands.FUEL_LEVEL,
+obd.commands.DISTANCE_SINCE_DTC_CLEAR]
 
 #initialize db connection (potentially unsafe!)
 usr = 'panu'
@@ -38,7 +40,7 @@ h = '212.149.236.220'
 cnx = mysql.connector.connect(host = h, user=usr, password=pw, database=db)
 cur = cnx.cursor()
 
-db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed, GPS_Lat, GPS_Long) VALUES ({0}, {1}, {2}, {3}, {4}, {5})")
+db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed, Fuel_level, Distance, GPS_Lat, GPS_Long) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})")
 
 #initialize for conditional stopping
 exit_count = 0
@@ -83,11 +85,15 @@ while True:
 
     #Commit ECU query results to db
     #GPS is only for simulation at this point
-    if r[3] == "n/a" or r[4] == "n/a":
-      cur.execute(db_query.format(1, r[0], r[1], r[2], 0, 0))
-    else:
-      cur.execute(db_query.format(1, r[0], r[1], r[2], r[3], r[4]))
-    cnx.commit()
+
+    try:
+      if r[3] == "n/a" or r[4] == "n/a":
+        cur.execute(db_query.format(1, r[0], r[1], r[2], 0, 0, r[5], r[6]))
+      else:
+        cur.execute(db_query.format(1, r[0], r[1], r[2], r[3], r[4], r[5], r[6]))
+      cnx.commit()
+    except mysql.connector.Error as e:
+      print("No connection to db, dropping data. Message: ", e.msg)
  
   sleep(interval)
 
