@@ -8,12 +8,14 @@ from time import sleep
 from subprocess import call
 from gps3.agps3threaded import AGPS3mechanism
 
-#----------Initialize GPS receiver-----------
+#---------------------INIT------------------------
+
+#Initialize GPS receiver
 agps_thread = AGPS3mechanism()
 agps_thread.stream_data()
 agps_thread.run_thread()
 
-#---------Initialize ELM327------------------
+#Initialize ELM327
 #First param is the RFCOMM port (e.g. '/dev/rfcomm0') and second is baud rate
 #None is the default and performs automatic lookup of serial connection (bluetooth/usb)
 #9600 works as the baud rate at least for obdSIM
@@ -42,6 +44,12 @@ cur = cnx.cursor()
 
 db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed, Fuel_level, Distance, GPS_Lat, GPS_Long) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})")
 
+#Queries to be submitted to ECU periodically
+queries = [
+obd.commands.RPM,
+obd.commands.ENGINE_LOAD,
+obd.commands.SPEED]
+
 #initialize for conditional stopping
 exit_count = 0
 
@@ -53,6 +61,7 @@ ttl = 60
 
 #-----------MAIN LOOP-----------------
 #Aqcuire data from target with conditional exit -> connection lost/ignition power off
+
 while True:
 #while exit_count < (ttl/interval):
   r = []
@@ -80,6 +89,9 @@ while True:
     #add GPS coordinates
     r.append(agps_thread.data_stream.lat)
     r.append(agps_thread.data_stream.lon)
+		
+    #debug
+    print(r)
 
     #debug
     print(r)
