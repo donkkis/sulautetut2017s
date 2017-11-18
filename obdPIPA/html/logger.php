@@ -57,6 +57,8 @@ if ($result->num_rows >  0) {
 			<th>RPM</th>
 			<th>Calc_load</th>
 			<th>Speed</th>
+			<th>Fuel_level</th>
+			<th>Distance</th>
 		</tr>";
 	//output data of each row
 	while($row = $result->fetch_assoc()) {
@@ -67,6 +69,8 @@ if ($result->num_rows >  0) {
 			"</td><td>".$row["RPM"].
 			"</td><td>".$row["Calc_load"].
 			"</td><td>".$row["Speed"].
+			"</td><td>".$row["Fuel_level"].
+			"</td><td>".$row["Distance"].
 			"</td></tr>";
 	}
 	echo "</table></center>";
