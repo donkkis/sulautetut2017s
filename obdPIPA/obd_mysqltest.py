@@ -33,9 +33,9 @@ obd.commands.DISTANCE_SINCE_DTC_CLEAR]
 
 #initialize db connection (potentially unsafe!)
 usr = 'panu'
-pw = 'panu'
+pw = ''
 db = 'obdlogger'
-h = '212.149.236.220'
+h = ''
 
 cnx = mysql.connector.connect(host = h, user=usr, password=pw, database=db)
 cur = cnx.cursor()
@@ -61,6 +61,7 @@ while True:
   #check exit conditions
   #-ELM327 connection down
   #-TODO Engine not running
+  #-TODO DB connection lost
   if c_status == "Not Connected":
     exit_count += 1
     print("Waiting " + str(ttl/interval -  exit_count) + " seconds for reconnection...")
