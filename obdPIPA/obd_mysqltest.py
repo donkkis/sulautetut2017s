@@ -22,22 +22,27 @@ agps_thread.run_thread()
 
 #The port should be changed according to environment
 #COM5 works locally with --> obdsim.exe -w COM4
-#/dev/rfcomm1 for car usage
 c = obd.OBD('/dev/rfcomm1', 9600)
 print(c.status())
 
+#Queries to be submitted to ECU periodically
+queries = [
+obd.commands.RPM,
+obd.commands.ENGINE_LOAD,
+obd.commands.SPEED,
+obd.commands.FUEL_LEVEL,
+obd.commands.DISTANCE_SINCE_DTC_CLEAR]
+
 #initialize db connection (potentially unsafe!)
 usr = 'panu'
-pw = 'panu'
+pw = ''
 db = 'obdlogger'
+h = ''
 
-cnx = mysql.connector.connect(user=usr, password=pw, database=db)
+cnx = mysql.connector.connect(host = h, user=usr, password=pw, database=db)
 cur = cnx.cursor()
 
-#-------------------PARAMETERS----------------------
-
-#DB Insert query
-db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed, GPS_Lat, GPS_Long) VALUES ({0}, {1}, {2}, {3}, {4}, {5})")
+db_query = ("INSERT into Entry (DeviceID, RPM, Calc_load, Speed, Fuel_level, Distance, GPS_Lat, GPS_Long) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})")
 
 #Queries to be submitted to ECU periodically
 queries = [
@@ -49,17 +54,14 @@ obd.commands.SPEED]
 exit_count = 0
 
 #set query interval globally
-interval = 1
+interval = 10
 
 #shutdown latency in seconds
-ttl = 10
-
-#Enable/disable automatic shutdown
-
+ttl = 60
 
 #-----------MAIN LOOP-----------------
 #Aqcuire data from target with conditional exit -> connection lost/ignition power off
-#For running indefinately
+
 while True:
 #while exit_count < (ttl/interval):
   r = []
@@ -68,6 +70,7 @@ while True:
   #check exit conditions
   #-ELM327 connection down
   #-TODO Engine not running
+  #-TODO DB connection lost
   if c_status == "Not Connected":
     exit_count += 1
     print("Waiting " + str(ttl/interval -  exit_count) + " seconds for reconnection...")
@@ -82,7 +85,7 @@ while True:
         r.append(res.value.magnitude)
       else:
         r.append(-99)
-		
+
     #add GPS coordinates
     r.append(agps_thread.data_stream.lat)
     r.append(agps_thread.data_stream.lon)
@@ -90,10 +93,20 @@ while True:
     #debug
     print(r)
 
+    #debug
+    print(r)
+
     #Commit ECU query results to db
     #GPS is only for simulation at this point
-    cur.execute(db_query.format(1, r[0], r[1], r[2], r[3], r[4]))
-    cnx.commit()
+
+    try:
+      if r[3] == "n/a" or r[4] == "n/a":
+        cur.execute(db_query.format(1, r[0], r[1], r[2], 0, 0, r[5], r[6]))
+      else:
+        cur.execute(db_query.format(1, r[0], r[1], r[2], r[3], r[4], r[5], r[6]))
+      cnx.commit()
+    except mysql.connector.Error as e:
+      print("No connection to db, dropping data. Message: ", e.msg)
  
   sleep(interval)
 
