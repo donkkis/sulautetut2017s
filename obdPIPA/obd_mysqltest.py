@@ -122,7 +122,7 @@ def wait_for_connection():
   waiting = 0
   while True:
     try:
-      response = urllib2.urlopen('http://212.149.236.220:7777',timeout=5)
+      response = urllib2.urlopen('http://xxx.xxx.xxx.xxx:7777',timeout=5)
       return
     except urllib2.URLError:
       if waiting == 0:
