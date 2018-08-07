@@ -6,3 +6,5 @@ Targets:
 -Read CAN-data from car via OBD / ELM327 bluetooth sensor
 -Build data logging system on RPi 3
 -Build web based 'fleet management' interface
+
+iot_report.pdf contains a final summary of the project.
